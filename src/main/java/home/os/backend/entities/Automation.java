@@ -6,26 +6,25 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="automations")
-
+@Table(name = "automations")
 public class Automation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name="id",nullable = false,updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(name="name", nullable = false, length = 50, unique = true)
+    @Column(name = "name", nullable = false, length = 50, unique = true)
     private String name;
 
-    @Column(name="description",length = 255)
+    @Column(name = "description", length = 255)
     private String description;
 
-    @Column(name="enabled")
+    @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
     @CreationTimestamp
-    @Column(name="created_at", nullable = false,updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     protected Automation() {
@@ -33,6 +32,7 @@ public class Automation {
 
     public Automation(String name) {
         this.name = name;
+        this.enabled = false;
     }
 
     public Long getId() {

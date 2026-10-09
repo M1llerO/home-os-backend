@@ -6,31 +6,30 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table (name="devices")
-
+@Table(name = "devices")
 public class Device {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", nullable = false, updatable = false)
+    @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(name="name", nullable = false, length = 100)
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name="device_type_id",nullable = false)
-    private Long deviceTypeId;
+    @JoinColumn(name = "device_type_id", nullable = false)
+    private DeviceType deviceType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="room_id")
-    private Long roomId;
+    @JoinColumn(name = "room_id")
+    private Room room;
 
-    @Column(name="mqtt_topic", length = 255)
+    @Column(name = "mqtt_topic", length = 255)
     private String mqttTopic;
 
     @CreationTimestamp
-    @Column(name="created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     protected Device() {
@@ -38,6 +37,12 @@ public class Device {
 
     public Device(String name) {
         this.name = name;
+    }
+
+    public Device(String name, DeviceType deviceType, Room room) {
+        this.name = name;
+        this.deviceType = deviceType;
+        this.room = room;
     }
 
     public Long getId() {
@@ -56,20 +61,20 @@ public class Device {
         this.name = name;
     }
 
-    public Long getDeviceTypeId() {
-        return deviceTypeId;
+    public DeviceType getDeviceType() {
+        return deviceType;
     }
 
-    public void setDeviceTypeId(Long deviceTypeId) {
-        this.deviceTypeId = deviceTypeId;
+    public void setDeviceType(DeviceType deviceType) {
+        this.deviceType = deviceType;
     }
 
-    public Long getRoomId() {
-        return roomId;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setRoomId(Long roomId) {
-        this.roomId = roomId;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     public String getMqttTopic() {
