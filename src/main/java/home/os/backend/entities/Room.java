@@ -1,11 +1,9 @@
 package home.os.backend.entities;
 
 import jakarta.persistence.*;
-import org.hibernate.boot.registry.selector.spi.StrategyCreator;
 
 @Entity
 @Table(name = "rooms")
-
 public class Room {
 
     @Id
@@ -13,10 +11,10 @@ public class Room {
     @Column(name = "id", nullable = false, updatable = false)
     private long id;
 
-    @Column(name = "name", nullable = false,length = 50)
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @Column(name= "description", length = 255)
+    @Column(name = "description", length = 255)
     private String description;
 
     protected Room() {
