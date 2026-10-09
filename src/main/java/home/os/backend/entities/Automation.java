@@ -14,14 +14,14 @@ public class Automation {
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(name = "name", nullable = false, length = 50, unique = true)
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
 
     @Column(name = "description", length = 255)
     private String description;
 
     @Column(name = "enabled", nullable = false)
-    private boolean enabled;
+    private boolean enabled = true;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -32,7 +32,6 @@ public class Automation {
 
     public Automation(String name) {
         this.name = name;
-        this.enabled = false;
     }
 
     public Long getId() {

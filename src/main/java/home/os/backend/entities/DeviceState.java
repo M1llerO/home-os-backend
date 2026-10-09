@@ -1,20 +1,11 @@
 package home.os.backend.entities;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(
-        name = "device_states",
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        name = "uk_device_states_device_id",
-                        columnNames = "device_id"
-                )
-        }
-)
+@Table(name = "device_states")
 public class DeviceState {
 
     @Id
@@ -26,19 +17,32 @@ public class DeviceState {
     @JoinColumn(name = "device_id", nullable = false, unique = true)
     private Device device;
 
-    @Column(name = "state", nullable = false, length = 255)
-    private String state;
+    @Column(name = "power")
+    private Boolean power;
 
-    @UpdateTimestamp
+    @Column(name = "value")
+    private Long value;
+
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
     protected DeviceState() {
     }
 
-    public DeviceState(Device device, String state) {
+    public DeviceState(Device device, Boolean power, Long value) {
         this.device = device;
-        this.state = state;
+        this.power = power;
+        this.value = value;
+    }
+
+    @PrePersist
+    void prePersist() {
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    void preUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -57,12 +61,20 @@ public class DeviceState {
         this.device = device;
     }
 
-    public String getState() {
-        return state;
+    public Boolean getPower() {
+        return power;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setPower(Boolean power) {
+        this.power = power;
+    }
+
+    public Long getValue() {
+        return value;
+    }
+
+    public void setValue(Long value) {
+        this.value = value;
     }
 
     public LocalDateTime getUpdatedAt() {
