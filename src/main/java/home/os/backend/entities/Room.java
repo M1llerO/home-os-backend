@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "rooms")
+
 public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
-    private long id;
+    private Long id;
 
     @Column(name = "name", nullable = false, length = 50)
     private String name;
@@ -24,7 +25,7 @@ public class Room {
         this.name = name;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
